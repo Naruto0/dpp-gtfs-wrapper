@@ -1,16 +1,48 @@
 import requests
+import os
+import subprocess
+from settings import Config
+from typing import Dict, Callable
 
-from backend.settings import Config
+__all__ = ['update_database', 'retrieve_data']
 
 
-def fetch_dpp():
-    with requests.get(Config.RESOURCE_URL) as req:
-        file_url = req.json()['result']['resources'][0]['url']
+def update_database(database=Config.DATABASE, method=""):
+    db = Config.DATABASE
+    if not os.path.isfile(db):
+        open(database, 'a').close()
+    subprocess.run(["gtfs2db", "overwrite", Config.ZIPFILE, f'{database}'])
+
+
+def extract_dpp() -> Dict[str, str]:
+    """Fetch filename and url for specific scenario"""
+    with requests.get(Config.RESOURCE_URL) as request:
+        file_url = request.json()['result']['resources'][0]['url']
         filename = file_url.split('/')[-1]
-        save(filename, file_url)
+        return {
+            'file_url': file_url,
+            'filename': filename
+        }
 
-def save(filename, file_url):
-    path = filename
+
+def save(filename: str, file_url: str, chunk_size: int = 1024) -> None:
+    """save retrieved file to specified location"""
+    path = os.path.join(Config.RESOURCE_DIR, filename)
+    if not os.path.exists(Config.RESOURCE_DIR):
+        os.makedirs(Config.RESOURCE_DIR)
+
     with requests.get(file_url) as zipfile:
-        with open(path,'wb') as f:
-            f.write(zipfile)
+        with open(path, 'wb') as f:
+            for chunk in zipfile.iter_content(chunk_size=chunk_size):
+                f.write(chunk)
+
+
+def retrieve_data(method: Callable = extract_dpp):
+    """process"""
+    data = method()
+    filename, file_url = data['filename'], data['file_url']
+    save(filename, file_url)
+
+
+if __name__ == '__main__':
+    retrieve_data()
