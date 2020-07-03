@@ -15,17 +15,17 @@ Create `.virtualenv`.
 $ python -m "virtualenv" <name-of-venv>
 ```
 
-activate it and install requirements
+Activate it and install requirements.
 
 ```
-$ source <name-of-env>/bin/acitavate
+$ source <name-of-env>/bin/actiavate
 $ pip install -r requirements.txt
 ```
 
-run setup to migrate data to __sqlite3__ database
+Run setup to migrate data to __sqlite3__ database.
 
 ```
 python backend/setup.py
 ```
 
-Use ``pygtfs`` module mentioned above to fiddle with data
+Use ``pygtfs`` module mentioned above to fiddle with data.
