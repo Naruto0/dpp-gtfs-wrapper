@@ -3,9 +3,10 @@
 .vscode
 
 # python, env
-.venv*
+.venv*/**
 **/__pycache__
 
 # project
 */resources
 *.db
+*.db-journal

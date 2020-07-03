@@ -1,15 +1,14 @@
 import requests
 import os
 import subprocess
-from settings import Config
+from backend.settings import Config
 from typing import Dict, Callable
 
 __all__ = ['update_database', 'retrieve_data']
 
 
 def update_database(database=Config.DATABASE, method=""):
-    db = Config.DATABASE
-    if not os.path.isfile(db):
+    if not os.path.isfile(database):
         open(database, 'a').close()
     subprocess.run(["gtfs2db", "overwrite", Config.ZIPFILE, f'{database}'])
 
