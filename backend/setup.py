@@ -1,5 +1,4 @@
-from backend.helpers import retrieve_data, update_database
-from backend.checks import run_check
+from backend.helpers import retrieve_data
 
 # TODO: modify setup to handle updates of source data
 

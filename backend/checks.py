@@ -7,7 +7,7 @@ from typing import IO
 from backend.settings import Config
 
 
-EXPRESSION = u'na znamení od 20 do 4 h,v SO a NE celodenně'
+EXPRESSION = "na znamení od 20 do 4 h,v SO a NE celodenně"
 
 
 def zipdir(path: str, ziph: zipfile.ZipFile) -> None:
@@ -18,7 +18,7 @@ def zipdir(path: str, ziph: zipfile.ZipFile) -> None:
 
 def check_expression(file_in: IO, file_out: IO, expression=EXPRESSION) -> None:
     for line in file_in:
-        unicode = line.decode('UTF-8')
+        unicode = line.decode("UTF-8")
         if expression in unicode:
             unicode = unicode.replace(expression, f'"{expression}"')
         file_out.write(unicode)
@@ -27,9 +27,9 @@ def check_expression(file_in: IO, file_out: IO, expression=EXPRESSION) -> None:
 def update_file(zipname: str, filename: str) -> None:
     zip_dir = tempfile.mkdtemp()
     temp_text = os.path.join(zip_dir, filename)
-    with zipfile.ZipFile(Config.ZIPFILE, 'r') as z:
-        with open(temp_text, 'w', encoding='UTF-8') as out:
-            with z.open(filename, 'r') as s:
+    with zipfile.ZipFile(Config.ZIPFILE, "r") as z:
+        with open(temp_text, "w", encoding="UTF-8") as out:
+            with z.open(filename, "r") as s:
                 check_expression(s, out)
 
         for item in z.infolist():
@@ -38,7 +38,7 @@ def update_file(zipname: str, filename: str) -> None:
 
     os.remove(zipname)
 
-    zf = zipfile.ZipFile(zipname, 'w', compression=zipfile.ZIP_DEFLATED)
+    zf = zipfile.ZipFile(zipname, "w", compression=zipfile.ZIP_DEFLATED)
     zipdir(zip_dir, zf)
     zf.close()
 
@@ -46,8 +46,8 @@ def update_file(zipname: str, filename: str) -> None:
 
 
 def run_check():
-    update_file(Config.ZIPFILE, 'stops.txt')
+    update_file(Config.ZIPFILE, "stops.txt")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run_check()

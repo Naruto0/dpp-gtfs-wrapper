@@ -42,7 +42,11 @@ def save(filename: str, file_url: str, sha: str, chunk_size: int = 1024) -> None
 def retrieve_data(method: Callable = extract_dpp):
     """process"""
     data: dict = method()
-    filename, file_url, file_hash = data["filename"], data["file_url"], data["file_hash"]
+    filename, file_url, file_hash = (
+        data["filename"],
+        data["file_url"],
+        data["file_hash"],
+    )
     if check_hash_same(file_hash):
         pass
     else:
