@@ -5,5 +5,3 @@ from backend.checks import run_check
 
 if __name__ == "__main__":
     retrieve_data()
-    run_check()
-    update_database()

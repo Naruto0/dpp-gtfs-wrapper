@@ -2,10 +2,10 @@ import os
 import shutil
 import tempfile
 import zipfile
+from typing import IO
 
 from backend.settings import Config
 
-from typing import IO
 
 EXPRESSION = u'na znamení od 20 do 4 h,v SO a NE celodenně'
 

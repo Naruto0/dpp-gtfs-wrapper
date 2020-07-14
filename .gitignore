@@ -10,3 +10,5 @@
 */resources
 *.db
 *.db-journal
+*/settings.py
+*/.last_hash
