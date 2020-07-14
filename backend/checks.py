@@ -38,8 +38,6 @@ def update_file(zipname: str, filename: str) -> None:
 
     os.remove(zipname)
 
-    # print(zip_dir)
-
     zf = zipfile.ZipFile(zipname, 'w', compression=zipfile.ZIP_DEFLATED)
     zipdir(zip_dir, zf)
     zf.close()
