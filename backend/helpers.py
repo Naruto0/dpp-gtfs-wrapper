@@ -23,10 +23,19 @@ def extract_dpp() -> Dict[str, str]:
         file_url = data["url"]
         file_hash = data["hash"]
         filename = file_url.split("/")[-1]
-        return {"file_url": file_url, "filename": filename, "file_hash": file_hash}
+        return {
+            "file_url": file_url,
+            "filename": filename,
+            "file_hash": file_hash
+        }
 
 
-def save(filename: str, file_url: str, sha: str, chunk_size: int = 1024) -> None:
+def save(
+    filename: str,
+    file_url: str,
+    sha: str,
+    chunk_size: int = 1024
+) -> None:
     """save retrieved file to specified location"""
     path: str = os.path.join(Config.RESOURCE_DIR, filename)
     if not os.path.exists(Config.RESOURCE_DIR):

@@ -1,14 +1,13 @@
-import hashlib
 import pickle
 import os
 import logging
 
 from typing import IO
 
-HASH_FILE = "resources/.last-hash"
+HASH_FILE = "backend/resources/.last-hash"
 
 if not os.path.exists(HASH_FILE):
-    f: IO = open(HASH_FILE, "a")
+    f: IO = open(HASH_FILE, "x")
     f.close()
 
 
